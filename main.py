@@ -64,14 +64,6 @@ async def get_items():
     """獲取所有商品"""
     return items_db
 
-@app.get("/items/{item_id}", response_model=Item)
-async def get_item(item_id: int):
-    """根據 ID 獲取單個商品"""
-    item = next((item for item in items_db if item["id"] == item_id), None)
-    if item is None:
-        raise HTTPException(status_code=404, detail="商品不存在")
-    return item
-
 @app.post("/items", response_model=Item, status_code=201)
 async def create_item(item: ItemCreate):
     """創建新商品"""
@@ -117,15 +109,6 @@ async def delete_item(item_id: int):
     deleted_item = items_db.pop(item_index)
     return {"message": f"商品 '{deleted_item['name']}' 已成功刪除"}
 
-@app.get("/items/search/{keyword}")
-async def search_items(keyword: str):
-    """根據關鍵字搜索商品"""
-    results = [
-        item for item in items_db 
-        if keyword.lower() in item["name"].lower() or 
-           (item["description"] and keyword.lower() in item["description"].lower())
-    ]
-    return {"keyword": keyword, "results": results, "count": len(results)}
 
 if __name__ == "__main__":
     uvicorn.run(

@@ -40,7 +40,6 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 ### 商品管理 API
 - `GET /items` - 獲取所有商品
-- `GET /items/{item_id}` - 獲取單個商品
 - `POST /items` - 創建新商品
 - `PUT /items/{item_id}` - 更新商品
 - `DELETE /items/{item_id}` - 刪除商品
