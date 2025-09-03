@@ -118,7 +118,7 @@ async def update_item(item_id: int, item_update: ItemUpdate):
     
     # 更新商品信息
     stored_item = items_db[item_index]
-    update_data = item_update.dict(exclude_unset=True)
+    update_data = item_update.model_dump(exclude_unset=True)
     
     for field, value in update_data.items():
         stored_item[field] = value
@@ -189,7 +189,7 @@ async def update_user(user_id: int, user_update: UserUpdate):
     
     # 更新用戶信息
     stored_user = users_db[user_index]
-    update_data = user_update.dict(exclude_unset=True)
+    update_data = user_update.model_dump(exclude_unset=True)
     
     for field, value in update_data.items():
         stored_user[field] = value
