@@ -46,6 +46,14 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 - `DELETE /items/{item_id}` - 刪除商品
 - `GET /items/search/{keyword}` - 搜索商品
 
+### 用戶管理 API
+- `GET /users` - 獲取所有用戶
+- `GET /users/{user_id}` - 獲取單個用戶
+- `POST /users` - 創建新用戶
+- `PUT /users/{user_id}` - 更新用戶
+- `DELETE /users/{user_id}` - 刪除用戶
+- `GET /users/search/{keyword}` - 搜索用戶
+
 ## API 文檔
 
 啟動應用後，可以訪問自動生成的 API 文檔：
@@ -76,6 +84,28 @@ curl -X GET "http://localhost:8000/items"
 ### 搜索商品
 ```bash
 curl -X GET "http://localhost:8000/items/search/筆記本"
+```
+
+### 創建用戶
+```bash
+curl -X POST "http://localhost:8000/users" \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "新用戶",
+    "email": "newuser@example.com",
+    "age": 25,
+    "is_active": true
+}'
+```
+
+### 獲取所有用戶
+```bash
+curl -X GET "http://localhost:8000/users"
+```
+
+### 搜索用戶
+```bash
+curl -X GET "http://localhost:8000/users/search/張"
 ```
 
 ## 項目結構
@@ -109,6 +139,7 @@ fast-api-example/
 
 ## 下一步
 
+- [x] 添加用戶管理 CRUD API
 - [ ] 添加數據庫支持（SQLAlchemy + PostgreSQL/MySQL）
 - [ ] 實現用戶認證和授權（JWT）
 - [ ] 添加日誌記錄
