@@ -11,6 +11,8 @@
 - ✅ 錯誤處理
 - ✅ 健康檢查端點
 - ✅ CRUD 操作示例
+- ✅ 商品管理 API
+- ✅ 用戶管理 API
 
 ## 安裝依賴
 
@@ -45,6 +47,15 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 - `DELETE /items/{item_id}` - 刪除商品
 - `GET /items/search/{keyword}` - 搜索商品
 
+### 用戶管理 API
+- `GET /users` - 獲取所有用戶
+- `GET /users/{user_id}` - 獲取特定用戶
+- `POST /users` - 創建新用戶
+- `PUT /users/{user_id}` - 更新用戶信息
+- `DELETE /users/{user_id}` - 刪除用戶
+
+**注意**: 用戶年齡一旦設定後不可修改。這是為了保護用戶身份信息的完整性。
+
 ## API 文檔
 
 啟動應用後，可以訪問自動生成的 API 文檔：
@@ -76,6 +87,40 @@ curl -X GET "http://localhost:8000/items"
 ```bash
 curl -X GET "http://localhost:8000/items/search/筆記本"
 ```
+
+### 創建用戶
+```bash
+curl -X POST "http://localhost:8000/users" \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "張三",
+    "email": "zhangsan@example.com",
+    "age": 28,
+    "is_active": true
+}'
+```
+
+### 獲取所有用戶
+```bash
+curl -X GET "http://localhost:8000/users"
+```
+
+### 獲取特定用戶
+```bash
+curl -X GET "http://localhost:8000/users/1"
+```
+
+### 更新用戶信息
+```bash
+curl -X PUT "http://localhost:8000/users/1" \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "張三(更新)",
+    "email": "zhangsan_updated@example.com"
+}'
+```
+
+**注意**: 如果用戶已有年齡設定，嘗試修改年齡將會失敗並返回錯誤。
 
 ## 項目結構
 
