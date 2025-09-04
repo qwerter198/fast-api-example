@@ -187,8 +187,12 @@ async def update_user(user_id: int, user_update: UserUpdate):
         if any(user["email"] == user_update.email and user["id"] != user_id for user in users_db):
             raise HTTPException(status_code=400, detail="郵箱已被其他用戶使用")
     
-    # 更新用戶信息
+    # 檢查年齡是否已設定，如果已設定則不允許修改
     stored_user = users_db[user_index]
+    if user_update.age is not None and stored_user.get("age") is not None:
+        raise HTTPException(status_code=400, detail="用戶年齡一旦設定後不可修改")
+    
+    # 更新用戶信息
     update_data = user_update.model_dump(exclude_unset=True)
     
     for field, value in update_data.items():

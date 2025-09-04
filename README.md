@@ -54,6 +54,8 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 - `PUT /users/{user_id}` - 更新用戶信息
 - `DELETE /users/{user_id}` - 刪除用戶
 
+**注意**: 用戶年齡一旦設定後不可修改。這是為了保護用戶身份信息的完整性。
+
 ## API 文檔
 
 啟動應用後，可以訪問自動生成的 API 文檔：
@@ -114,9 +116,11 @@ curl -X PUT "http://localhost:8000/users/1" \
 -H "Content-Type: application/json" \
 -d '{
     "name": "張三(更新)",
-    "age": 29
+    "email": "zhangsan_updated@example.com"
 }'
 ```
+
+**注意**: 如果用戶已有年齡設定，嘗試修改年齡將會失敗並返回錯誤。
 
 ## 項目結構
 
